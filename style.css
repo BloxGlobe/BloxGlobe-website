@@ -1,71 +1,149 @@
 /* --------------------------------------------------
-   Creator Dashboard Theme — Extra CSS Layer
-   (Works alongside global.css & Tailwind)
+   Creator Dashboard 1:1 Replica — BloxGlobe
 -------------------------------------------------- */
 
-/* Root Tokens (same as global.css for consistency) */
 :root {
-  --bg-main: #111315;
-  --bg-sidebar: #1A1C1E;
-  --bg-card: #1E2022;
-  --border: #2a2d30;
+  --bg: #111315;
+  --bg-secondary: #1A1C1E;
+  --bg-hover: #292c2f;
+  --bg-active: #2f3236;
+  --divider: #2a2d30;
+  --text: #ffffff;
   --text-dim: rgba(255,255,255,0.55);
 }
 
-/* Body Fixes */
+/* Layout */
 body {
-  background: var(--bg-main);
-  color: white;
+  background: var(--bg);
+  color: var(--text);
   font-family: ui-sans-serif, system-ui, sans-serif;
+  margin: 0;
 }
 
-/* Sidebar Base */
+.layout {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+/* --------------------------------------------------
+   Sidebar
+-------------------------------------------------- */
+
 .sidebar {
-  background: var(--bg-sidebar);
-  border-right: 1px solid var(--border);
+  width: 250px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--divider);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Header */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: var(--text);
+  font-size: 1.25rem;
+  margin-bottom: 25px;
+}
+
+.rbx-logo {
+  width: 22px;
+}
+
+.creator-title {
+  letter-spacing: 0.5px;
+}
+
+/* User section */
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.user-pfp {
+  width: 33px;
+  height: 33px;
+  border-radius: 7px;
+}
+
+.username {
+  font-weight: 600;
+}
+
+.arrow-icon {
+  width: 12px;
+  opacity: 0.5;
 }
 
 /* Buttons */
 .nav-btn {
-  background: transparent;
-  border-radius: 6px;
   padding: 10px 14px;
-  transition: 0.15s;
+  background: transparent;
   text-align: left;
+  border-radius: 6px;
+  transition: 0.15s;
+  color: var(--text);
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
 }
 
 .nav-btn:hover {
-  background: rgba(255,255,255,0.05);
+  background: var(--bg-hover);
 }
 
 .nav-btn-active {
-  background: rgba(255,255,255,0.1);
+  background: var(--bg-active);
 }
 
-/* Cards */
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 18px;
+.bottom-link {
+  margin-top: 6px;
+  opacity: 0.8;
 }
 
-/* Page Title */
-.page-title {
-  font-size: 1.9rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+/* Divider */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--divider);
+  opacity: 0.35;
+  margin: 10px 0;
+}
+
+/* --------------------------------------------------
+   Main content
+-------------------------------------------------- */
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.content {
+  padding: 25px;
 }
 
 /* Footer */
-footer {
-  border-top: 1px solid var(--border);
+.footer {
+  padding: 12px 20px;
+  font-size: 14px;
   color: var(--text-dim);
+  border-top: 1px solid var(--divider);
 }
 
-/* Scrollbar (Dashboard-style) */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -79,13 +157,4 @@ footer {
 
 ::-webkit-scrollbar-track {
   background: #181a1c;
-}
-
-/* Divider */
-.divider {
-  height: 1px;
-  width: 100%;
-  background: var(--border);
-  opacity: 0.35;
-  margin: 8px 0;
 }
