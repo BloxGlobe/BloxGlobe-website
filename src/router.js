@@ -1,33 +1,43 @@
-// --- Clean Page Loader ---
+//hash router
+
+// Load an HTML page from /src/pages/*.html
 async function loadPage(page) {
   const content = document.getElementById("page-content");
 
-  // GitHub Pages adds repo name in the path
-  const base = window.location.pathname.split("/")[1]; // e.g. BloxGlobe-website
-  const realRoot = `/${base}/`;
+  const url = `src/pages/${page}.html`;
 
   try {
-    const res = await fetch(`${realRoot}src/pages/${page}.html`);
-    if (!res.ok) throw new Error("Page not found");
-    
-    content.innerHTML = await res.text();
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Page missing");
+
+    content.innerHTML = await response.text();
     setActive(page);
-  } catch {
-    const res = await fetch(`${realRoot}src/pages/404.html`);
-    content.innerHTML = await res.text();
+
+  } catch (err) {
+    const fallback = await fetch("src/pages/404.html");
+    content.innerHTML = await fallback.text();
   }
 }
 
-// --- Highlight Active Nav Button ---
+// Highlight the current button
 function setActive(page) {
   document.querySelectorAll(".nav-btn")
     .forEach(btn => btn.classList.remove("nav-btn-active"));
 
-  const active = document.querySelector(`.nav-btn[data-page="${page}"]`);
-  if (active) active.classList.add("nav-btn-active");
+  const theBtn = document.querySelector(`.nav-btn[data-page="${page}"]`);
+  if (theBtn) theBtn.classList.add("nav-btn-active");
 }
 
-// --- Handle Nav Button Clicks ---
+// When URL hash changes (#home → #store)
+function handleRoute() {
+  let page = location.hash.replace("#", "");
+
+  if (page === "" || page === "/") page = "home"; // default fallback
+
+  loadPage(page);
+}
+
+// Handle sidebar clicks
 document.addEventListener("click", e => {
   const btn = e.target.closest(".nav-btn");
   if (!btn) return;
@@ -35,24 +45,14 @@ document.addEventListener("click", e => {
   const page = btn.getAttribute("data-page");
   if (!page) return;
 
-  const base = window.location.pathname.split("/")[1]; // repo folder
-  history.pushState({}, "", `/${base}/${page}`);
-
-  loadPage(page);
+  location.hash = page; // updates URL AND triggers routing
 });
 
-// --- Handle Back/Forward ---
-window.addEventListener("popstate", () => {
-  const parts = window.location.pathname.split("/");
-  const page = parts[2] || "home"; 
-  loadPage(page);
-});
+// Back/forward browser navigation
+window.addEventListener("hashchange", handleRoute);
 
-// --- Initial Load ---
+// Initial page load
 window.addEventListener("load", () => {
-  const parts = window.location.pathname.split("/");
-  const page = parts[2] || "home";
-
-  loadPage(page);
   document.getElementById("year").textContent = new Date().getFullYear();
+  handleRoute();
 });
