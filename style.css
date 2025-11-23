@@ -1,0 +1,91 @@
+/* --------------------------------------------------
+   Creator Dashboard Theme — Extra CSS Layer
+   (Works alongside global.css & Tailwind)
+-------------------------------------------------- */
+
+/* Root Tokens (same as global.css for consistency) */
+:root {
+  --bg-main: #111315;
+  --bg-sidebar: #1A1C1E;
+  --bg-card: #1E2022;
+  --border: #2a2d30;
+  --text-dim: rgba(255,255,255,0.55);
+}
+
+/* Body Fixes */
+body {
+  background: var(--bg-main);
+  color: white;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Sidebar Base */
+.sidebar {
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+}
+
+/* Buttons */
+.nav-btn {
+  background: transparent;
+  border-radius: 6px;
+  padding: 10px 14px;
+  transition: 0.15s;
+  text-align: left;
+}
+
+.nav-btn:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.nav-btn-active {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+/* Page Title */
+.page-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+}
+
+/* Scrollbar (Dashboard-style) */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d3033;
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3d40;
+}
+
+::-webkit-scrollbar-track {
+  background: #181a1c;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  width: 100%;
+  background: var(--border);
+  opacity: 0.35;
+  margin: 8px 0;
+}
