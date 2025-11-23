@@ -1,5 +1,3 @@
-// src/page.ts
-
 // Map of pages → HTML file paths
 const pages: Record<string, string> = {
   home: "/src/pages/home.html",
@@ -12,9 +10,7 @@ const pages: Record<string, string> = {
 
 // Loads a page into #page-content
 export async function loadPage(pageName: string) {
-  const container = document.getElementById("page-content");
-  if (!container) return;
-
+  const container = document.getElementById("page-content")!;
   const file = pages[pageName];
   if (!file) {
     container.innerHTML = `<p class="text-red-400">Page not found.</p>`;
@@ -23,21 +19,42 @@ export async function loadPage(pageName: string) {
 
   try {
     const res = await fetch(file);
+    if (!res.ok) throw new Error();
+
     const html = await res.text();
-    container.innerHTML = html;
-  } catch (err) {
-    container.innerHTML = `<p class="text-red-400">Failed to load page.</p>`;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    container.innerHTML = doc.body.innerHTML;
+    setActive(pageName);
+  } catch {
+    const res = await fetch("/src/pages/404.html");
+    const html = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    container.innerHTML = doc.body.innerHTML;
   }
 }
 
 // Attach events to sidebar buttons
 export function initPageLoader() {
   const buttons = document.querySelectorAll("[data-page]");
-
   buttons.forEach(btn => {
     btn.addEventListener("click", () => {
-      const page = btn.getAttribute("data-page");
-      if (page) loadPage(page);
+      const page = btn.getAttribute("data-page")!;
+      loadPage(page);
+      // Prevent default behavior (i.e., navigating to a new page)
+      event.preventDefault();
+      // Update the URL hash to reflect the new page
+      history.pushState({}, "", `#${page}`);
     });
   });
+}
+
+// Function to set active page
+function setActive(page: string) {
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn => btn.classList.remove("nav-btn-active"));
+
+  const active = document.querySelector(`.nav-btn[data-page="${page}"]`);
+  active?.classList.add("nav-btn-active");
 }

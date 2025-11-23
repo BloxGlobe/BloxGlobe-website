@@ -1,4 +1,54 @@
 <div>
   <h1 class="page-title">Experiences</h1>
-  <div class="card">Experience tools coming soon.</div>
+  <div class="card">
+    <h2>Games I Own:</h2>
+    <ul>
+      <li><a href="https://www.roblox.com/games/85250100428738/R26">R26</a></li>
+      <li><a href="https://www.roblox.com/games/96190771257101/PixelDrop">PixelDrop</a></li>
+      <li><a href="https://www.roblox.com/games/135869717619701/Beta">Beta</a></li>
+    </ul>
+    <h2>Currently Playing:</h2>
+    <div id="currently-playing"></div>
+    <h2>Total Visits:</h2>
+    <div id="total-visits"></div>
+    <h2>Game Thumbnail:</h2>
+    <img id="game-thumbnail" src="" alt="Game Thumbnail">
+    <h2>Is Public:</h2>
+    <div id="is-public"></div>
+  </div>
 </div>
+
+<script>
+  // Roblox API keys
+  const apiKey = 'uyN/PKEyf0edkiuy+baGp/zMPcBvnLdCCE789K0ElbzS5zJJZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNkluTnBaeTB5TURJeExUQTNMVEV6VkRFNE9qVXhPalE1V2lJc0luUjVjQ0k2SWtwWFZDSjkuZXlKaGRXUWlPaUpTYjJKc2IzaEpiblJsY201aGJDSXNJbWx6Y3lJNklrTnNiM1ZrUVhWMGFHVnVkR2xqWVhScGIyNVRaWEoyYVdObElpd2lZbUZ6WlVGd2FVdGxlU0k2SW5WNVRpOVFTMFY1WmpCbFpHdHBkWGtyWW1GSGNDOTZUVkJqUW5adVRHUkRRMFUzT0RsTE1FVnNZbnBUTlhwS1NpSXNJbTkzYm1WeVNXUWlPaUkxTlRJMU9UTTNOVGMySWl3aVpYaHdJam94TnpZek9UTTVNalF5TENKcFlYUWlPakUzTmpNNU16VTJORElzSW01aVppSTZNVGMyTXprek5UWTBNbjAuY1ZGWDFLX01sdVAyZTAzd2FTaHE0YXVvYzZjbHo5NUxYRlVhbXhTU1lua0hYU0V4TzZDVHVOWEtSUjhER192V0N5SEtRRWZuaGw5MTNGUGV0Qzk3YTloSmt5elIta1RaOEU0eHBfRjRDNVJLeG1Cd1BxRVhiYUZxNEZCVWJjQXRYaEtyeEZ0Ukk2YUowMXV5V1Yxc0ZfNDNyaXNzLWRTUDhfUzNQeXA1LTRYNVYwLXN1QWZTcTJIVzdRY3phQlFqcEstNWpsdlY0SUU4dVZDNGdlTG9pcmxsWmFVbm5tNDAzNFhJUzVZSWV1T0pQVTVjUXVhZVBIdm1WZWpjbTExbDFzRTJGUE5rT2dNVGdBUkxFUnhkNFUyZ3lxS1llNnYwNTZtcUszTGJzN3R4N1Zial9FNkdCdUZYcDhqbUQ2SlVNV2poSGttNUFNZWtBTTJQYXA4bzlB';
+  const apiSecret = 'uyN/PKEyf0edkiuy+baGp/zMPcBvnLdCCE789K0ElbzS5zJJZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNkluTnBaeTB5TURJeExUQTNMVEV6VkRFNE9qVXhPalE1V2lJc0luUjVjQ0k2SWtwWFZDSjkuZXlKaGRXUWlPaUpTYjJKc2IzaEpiblJsY201aGJDSXNJbWx6Y3lJNklrTnNiM1ZrUVhWMGFHVnVkR2xqWVhScGIyNVRaWEoyYVdObElpd2lZbUZ6WlVGd2FVdGxlU0k2SW5WNVRpOVFTMFY1WmpCbFpHdHBkWGtyWW1GSGNDOTZUVkJqUW5adVRHUkRRMFUzT0RsTE1FVnNZbnBUTlhwS1NpSXNJbTkzYm1WeVNXUWlPaUkxTlRJMU9UTTNOVGMySWl3aVpYaHdJam94TnpZek9UTTVNalF5TENKcFlYUWlPakUzTmpNNU16VTJORElzSW01aVppSTZNVGMyTXprek5UWTBNbjAuY1ZGWDFLX01sdVAyZTAzd2FTaHE0YXVvYzZjbHo5NUxYRlVhbXhTU1lua0hYU0V4TzZDVHVOWEtSUjhER192V0N5SEtRRWZuaGw5MTNGUGV0Qzk3YTloSmt5elIta1RaOEU0eHBfRjRDNVJLeG1Cd1BxRVhiYUZxNEZCVWJjQXRYaEtyeEZ0Ukk2YUowMXV5V1Yxc0ZfNDNyaXNzLWRTUDhfUzNQeXA1LTRYNVYwLXN1QWZTcTJIVzdRY3phQlFqcEstNWpsdlY0SUU4dVZDNGdlTG9pcmxsWmFVbm5tNDAzNFhJUzVZSWV1T0pQVTVjUXVhZVBIdm1WZWpjbTExbDFzRTJGUE5rT2dNVGdBUkxFUnhkNFUyZ3lxS1llNnYwNTZtcUszTGJzN3R4N1Zial9FNkdCdUZYcDhqbUQ2SlVNV2poSGttNUFNZWtBTTJQYXA4bzlB';
+
+  // Function to fetch game data from Roblox API
+  function getGameData(gameId) {
+    const url = `https://api.roblox.com/v1/games/${gameId}`;
+    const headers = {
+      'Authorization': `Bearer ${apiKey}`,
+      'X-Roblox-API-Product': 'roblox-api',
+      'X-Roblox-API-Region': 'us-west-1'
+    };
+    fetch(url, { headers })
+      .then(response => response.json())
+      .then(data => {
+        const currentlyPlaying = data.Players.Online;
+        const totalVisits = data.VisitCount;
+        const gameThumbnail = data.Thumbnail;
+        const isPublic = data.Public;
+
+        document.getElementById('currently-playing').innerHTML = `Currently Playing: ${currentlyPlaying}`;
+        document.getElementById('total-visits').innerHTML = `Total Visits: ${totalVisits}`;
+        document.getElementById('game-thumbnail').src = gameThumbnail;
+        document.getElementById('is-public').innerHTML = `Is Public: ${isPublic}`;
+      })
+      .catch(error => console.error(error));
+  }
+
+  // Get game data for each game I own
+  getGameData('85250100428738');
+  getGameData('96190771257101');
+  getGameData('135869717619701');
+</script>
