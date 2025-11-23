@@ -1,28 +1,32 @@
-import { openSecurityPrompt } from "../packages/Oauth/securityPrompt.js"; 
-// 👆 IMPORTANT: .js extension because the compiled output in /dist uses .js
+function setActive(page: string) {
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn => btn.classList.remove("nav-btn-active"));
 
-// Wait until DOM is loaded so router-injected pages work
-document.addEventListener("DOMContentLoaded", () => {
-  document.addEventListener("click", (e) => {
-    const target = e.target as HTMLElement;
+  document
+    .querySelector(`.nav-btn[data-page="${page}"]`)
+    ?.classList.add("nav-btn-active");
+}
 
-    // Handle Site Updates → Post Update Button
-    if (target && target.id === "postUpdateBtn") {
-      openSecurityPrompt(() => {
-        const input = document.getElementById(
-          "updateInput"
-        ) as HTMLTextAreaElement;
-        const log = document.getElementById("changelog") as HTMLElement;
+async function loadPage(page: string) {
+  const container = document.getElementById("page-content")!;
 
-        if (!input || !log) return; // Avoid router timing errors
-        if (!input.value.trim()) return;
+  try {
+    const res = await fetch(`/src/pages/${page}.html`);
+    container.innerHTML = await res.text();
+    setActive(page);
+  } 
+  catch {
+    const res = await fetch(`/src/pages/404.html`);
+    container.innerHTML = await res.text();
+  }
+}
 
-        // Add update
-        log.innerHTML =
-          `<div class="mb-2">• ${input.value}</div>` + log.innerHTML;
-
-        input.value = "";
-      });
-    }
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const page = btn.getAttribute("data-page")!;
+    loadPage(page);
+    history.replaceState({}, "", `#${page}`);
   });
 });
+
+loadPage(location.hash.replace("#", "") || "home");

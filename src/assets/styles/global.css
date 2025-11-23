@@ -2,70 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ---------------------------------------------------
-   GLOBAL THEME — Matching Creator Dashboard style
---------------------------------------------------- */
-
-/* Root colors (Tailwind uses these classes) */
+/* Creator Dashboard Color Tokens */
 :root {
-  --bg-primary: #0a0a0f;     /* deep dark */
-  --bg-secondary: #111118;   /* slightly lighter dark */
-  --bg-tertiary: #1a1a22;    /* surface card */
-  --gray-soft: #2a2a35;      /* soft gray */
-  --gray-hover: #33333f;     /* hover gray */
-  --accent-blue: #3b82f6;    /* Tailwind blue-500 */
-  --accent-blue-hover: #2563eb; /* blue-600 */
+  --bg-main: #111315;
+  --bg-sidebar: #1A1C1E;
+  --bg-card: #1E2022;
+  --border: #2a2d30;
+  --text-dim: rgba(255,255,255,0.55);
 }
 
-/* GLOBAL BODY */
 body {
-  @apply bg-gray-900 text-white font-sans;
-  background-color: var(--bg-primary);
+  @apply bg-[var(--bg-main)] text-white font-sans;
 }
 
-/* ------------------------------
-   BUTTONS
------------------------------- */
-
-.btn {
-  @apply px-4 py-2 rounded-lg font-semibold transition;
-  background-color: var(--accent-blue);
+.sidebar {
+  @apply bg-[var(--bg-sidebar)] border-r border-[var(--border)];
 }
-
-.btn:hover {
-  background-color: var(--accent-blue-hover);
-}
-
-/* ------------------------------
-   NAV BUTTONS (sidebar)
------------------------------- */
 
 .nav-btn {
-  @apply w-full text-left px-4 py-2 rounded-lg font-medium transition;
-  background-color: var(--gray-soft);
+  @apply w-full text-left px-4 py-2 rounded-md bg-transparent hover:bg-[rgba(255,255,255,0.05)] transition;
 }
 
-.nav-btn:hover {
-  background-color: var(--gray-hover);
+.nav-btn-active {
+  @apply bg-[rgba(255,255,255,0.1)];
 }
-
-/* ------------------------------
-   TITLES
------------------------------- */
-
-.page-title {
-  @apply text-3xl font-bold mb-4;
-}
-
-/* ------------------------------
-   CARDS (dashboard style)
------------------------------- */
 
 .card {
-  @apply p-4 rounded-xl shadow-md border border-gray-800 transition;
-  background-color: var(--bg-tertiary);
+  @apply bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-5;
 }
 
-.card:hover {
-  background-color: var(--bg-secondary);
+.page-title {
+  @apply text-3xl font-bold mb-6;
 }
