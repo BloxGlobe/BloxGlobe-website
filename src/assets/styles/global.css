@@ -2,86 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-/* GLOBAL */
+/* ---------------------------------------------------
+   GLOBAL THEME — Matching Creator Dashboard style
+--------------------------------------------------- */
+
+/* Root colors (Tailwind uses these classes) */
+:root {
+  --bg-primary: #0a0a0f;     /* deep dark */
+  --bg-secondary: #111118;   /* slightly lighter dark */
+  --bg-tertiary: #1a1a22;    /* surface card */
+  --gray-soft: #2a2a35;      /* soft gray */
+  --gray-hover: #33333f;     /* hover gray */
+  --accent-blue: #3b82f6;    /* Tailwind blue-500 */
+  --accent-blue-hover: #2563eb; /* blue-600 */
+}
+
+/* GLOBAL BODY */
 body {
-  @apply bg-[#0f0f11] text-white font-sans overflow-hidden;
+  @apply bg-gray-900 text-white font-sans;
+  background-color: var(--bg-primary);
 }
 
-h1, h2, h3 {
-  @apply font-semibold tracking-tight;
-}
+/* ------------------------------
+   BUTTONS
+------------------------------ */
 
-/* LAYOUT */
-.dashboard {
-  @apply flex h-screen w-full;
-}
-
-/* SIDEBAR */
-.sidebar {
-  @apply w-64 bg-[#111214] border-r border-[#1a1b1e]
-         flex flex-col justify-between py-4 px-3;
-}
-
-.nav-item {
-  @apply flex items-center gap-3 px-3 py-2 my-1 rounded-lg
-         text-gray-300 hover:bg-[#1b1c1f] hover:text-white
-         transition-all duration-200 cursor-pointer;
-}
-
-.active-tab {
-  @apply bg-[#1e1f22] text-white;
-}
-
-/* MAIN CONTENT */
-.main-content {
-  @apply flex-1 overflow-y-auto p-8 bg-[#0f0f11];
-}
-
-/* SECTION TITLES */
-.section-title {
-  @apply text-xl font-bold mb-4;
-}
-
-/* CARDS */
-.card {
-  @apply bg-[#141517] border border-[#1e1f22]
-         rounded-xl shadow-md p-5 transition-all duration-200
-         hover:shadow-lg hover:scale-[1.01];
-}
-
-/* GRID OF CARDS */
-.card-grid {
-  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
-}
-
-/* BUTTONS */
 .btn {
-  @apply px-4 py-2 rounded-lg bg-blue-600 text-white font-medium
-         hover:bg-blue-700 active:scale-95 transition-all;
+  @apply px-4 py-2 rounded-lg font-semibold transition;
+  background-color: var(--accent-blue);
 }
 
-/* INPUTS */
-.input {
-  @apply w-full bg-[#1a1b1e] border border-[#27282c]
-         rounded-xl px-4 py-3 outline-none text-white
-         focus:border-blue-500 focus:ring-2 focus:ring-blue-500;
+.btn:hover {
+  background-color: var(--accent-blue-hover);
 }
 
-/* TEXTAREAS */
-.textarea {
-  @apply w-full bg-[#1a1b1e] border border-[#27282c]
-         rounded-xl px-4 py-3 resize-none text-white
-         focus:border-blue-500 focus:ring-2 focus:ring-blue-500;
+/* ------------------------------
+   NAV BUTTONS (sidebar)
+------------------------------ */
+
+.nav-btn {
+  @apply w-full text-left px-4 py-2 rounded-lg font-medium transition;
+  background-color: var(--gray-soft);
 }
 
-/* THIN SCROLLBAR — Roblox style */
-::-webkit-scrollbar {
-  width: 8px;
+.nav-btn:hover {
+  background-color: var(--gray-hover);
 }
-::-webkit-scrollbar-thumb {
-  background: #2c2d31;
-  border-radius: 4px;
+
+/* ------------------------------
+   TITLES
+------------------------------ */
+
+.page-title {
+  @apply text-3xl font-bold mb-4;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #3c3d42;
+
+/* ------------------------------
+   CARDS (dashboard style)
+------------------------------ */
+
+.card {
+  @apply p-4 rounded-xl shadow-md border border-gray-800 transition;
+  background-color: var(--bg-tertiary);
+}
+
+.card:hover {
+  background-color: var(--bg-secondary);
 }

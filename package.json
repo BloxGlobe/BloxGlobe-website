@@ -1,10 +1,13 @@
 {
   "name": "bloxglobe-website",
   "version": "1.0.0",
-  "description": "A place holder for site code 🌙",
+  "description": "A placeholder for site code 🌙",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build:css": "postcss src/global.css -o src/output.css"
   },
   "repository": {
     "type": "git",
@@ -13,7 +16,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/BloxGlobe/BloxGlobe-website/issues"
   },
@@ -23,6 +26,7 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3",
-    "vite": "^7.2.4"
+    "vite": "^7.2.4",
+    "@vitejs/plugin-react": "^4.0.0"
   }
 }
