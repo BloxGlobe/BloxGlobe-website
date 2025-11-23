@@ -2,9 +2,8 @@ function setActive(page: string) {
   document.querySelectorAll(".nav-btn")
     .forEach(btn => btn.classList.remove("nav-btn-active"));
 
-  document
-    .querySelector(`.nav-btn[data-page="${page}"]`)
-    ?.classList.add("nav-btn-active");
+  const active = document.querySelector(`.nav-btn[data-page="${page}"]`);
+  active?.classList.add("nav-btn-active");
 }
 
 async function loadPage(page: string) {
@@ -12,6 +11,8 @@ async function loadPage(page: string) {
 
   try {
     const res = await fetch(`/src/pages/${page}.html`);
+    if (!res.ok) throw new Error();
+
     container.innerHTML = await res.text();
     setActive(page);
   } 
@@ -29,4 +30,9 @@ document.querySelectorAll(".nav-btn").forEach(btn => {
   });
 });
 
-loadPage(location.hash.replace("#", "") || "home");
+// Load initial page based on hash
+const firstPage = location.hash.replace("#", "") || "home";
+loadPage(firstPage);
+
+// Update year
+document.getElementById("year")!.textContent = new Date().getFullYear().toString();

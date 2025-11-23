@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -8,13 +8,15 @@
   <link rel="stylesheet" href="/src/assets/styles/global.css" />
 </head>
 
-<body>
+<body class="bg-[var(--bg)] text-[var(--text)]">
 
   <div class="flex h-screen w-full">
 
-    <aside class="sidebar w-64 p-5 flex flex-col gap-3">
+    <!-- SIDEBAR -->
+    <aside class="sidebar w-64 p-5 flex flex-col gap-3 
+                   bg-[var(--bg-secondary)] border-r border-[var(--border)]">
 
-      <h1 class="text-xl font-bold mb-4">Dashboard</h1>
+      <h1 class="text-xl font-bold mb-4 text-white">Dashboard</h1>
 
       <button class="nav-btn" data-page="home">Home</button>
       <button class="nav-btn" data-page="experience">Experiences</button>
@@ -35,9 +37,12 @@
 
     </aside>
 
-    <main class="flex-1 flex flex-col overflow-y-auto">
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col overflow-y-auto bg-[var(--bg)]">
 
-      <div id="page-content" class="p-6">Loading...</div>
+      <div id="page-content" class="p-6">
+        Loading...
+      </div>
 
       <footer class="py-3 pl-6 text-[var(--text-dim)] text-sm border-t border-[var(--border)]">
         © <span id="year"></span> BloxGlobe — All rights reserved.
