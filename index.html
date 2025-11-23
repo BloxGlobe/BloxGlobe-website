@@ -6,22 +6,22 @@
   <title>BloxGlobe Dashboard</title>
 
   <link rel="stylesheet" href="style.css" />
+
+  <!-- HASH ROUTER -->
+  <script src="src/router.js" defer></script>
 </head>
 
 <body>
-
   <div class="layout">
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
 
-      <!-- Top branding -->
       <div class="sidebar-header">
         <img src="src/images/BloxGlobe.png" class="rbx-logo">
         <span class="title">Dashboard</span>
       </div>
 
-      <!-- Nav -->
       <button class="nav-btn" data-page="home">Home</button>
       <button class="nav-btn" data-page="creations">Creations</button>
       <button class="nav-btn" data-page="store">Store</button>
@@ -37,28 +37,21 @@
 
       <div class="divider"></div>
 
-      <!-- Bottom links -->
-      <button class="nav-btn bottom-link">Docs & FAQ</button>
-      <button class="nav-btn bottom-link">Email & Support</button>
+      <!-- Bottom links now route -->
+      <button class="nav-btn bottom-link" data-page="docs">Docs & FAQ</button>
+      <button class="nav-btn bottom-link" data-page="support">Email & Support</button>
 
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN -->
     <main class="main">
-
-      <div id="page-content" class="content">
-        Loading...
-      </div>
+      <div id="page-content" class="content">Loading...</div>
 
       <footer class="footer">
         © <span id="year"></span> BloxGlobe — All rights reserved.
       </footer>
-
     </main>
 
   </div>
-
-  <script type="module" src="/src/main.tsx"></script>
-
 </body>
 </html>

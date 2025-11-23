@@ -1,36 +1,50 @@
-async function loadModule(name) {
-  const app = document.getElementById("app");
-  const path = `src/modules/${name}/${name}.html`;
+//Clean Page loader//
+
+async function loadPage(page) {
+  const content = document.getElementById("page-content");
 
   try {
-    const response = await fetch(path);
+    const res = await fetch(`./src/pages/${page}.html`);
+    if (!res.ok) throw new Error();
 
-    if (!response.ok) throw new Error("Not found");
-
-    const html = await response.text();
-    app.innerHTML = html;
-
-  } catch (err) {
-    load404();
+    content.innerHTML = await res.text();
+    setActive(page);
+  } catch {
+    const res = await fetch(`./src/pages/404.html`);
+    content.innerHTML = await res.text();
   }
 }
 
-async function load404() {
-  const app = document.getElementById("app");
-  const response = await fetch("src/modules/404/404.html");
-  const html = await response.text();
-  app.innerHTML = html;
+function setActive(page) {
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn => btn.classList.remove("nav-btn-active"));
+
+  const active = document.querySelector(`.nav-btn[data-page="${page}"]`);
+  if (active) active.classList.add("nav-btn-active");
 }
 
-// Sidebar navigation loading
-document.querySelectorAll(".nav-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    loadModule(btn.dataset.module);
-  });
+// When user clicks a button, change URL like /store, /docs
+document.addEventListener("click", e => {
+  const btn = e.target.closest(".nav-btn");
+  if (!btn) return;
+
+  const page = btn.getAttribute("data-page");
+  if (!page) return;
+
+  history.pushState({}, "", `/${page}`);
+  loadPage(page);
 });
 
-// Block direct index.html access and load 404 instead
-const url = window.location.href;
-if (url.includes("index.html") && !url.endsWith("index.html")) {
-  load404();
-}
+// Handle back/forward buttons
+window.addEventListener("popstate", () => {
+  const page = location.pathname.replace("/", "") || "home";
+  loadPage(page);
+});
+
+// Initial load
+window.addEventListener("load", () => {
+  const page = location.pathname.replace("/", "") || "home";
+  loadPage(page);
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+});
