@@ -1,4 +1,48 @@
-<div>
+<div class="page">
   <h1 class="page-title">Forums</h1>
-  <div class="card">Community Forum pages coming soon.</div>
+
+  <div class="card" style="padding:20px;">
+      <h2>Community Forum</h2>
+
+      <!-- Posts List -->
+      <div id="posts" style="margin-top:20px;"></div>
+
+      <!-- Input Bar -->
+      <textarea 
+        id="post-input" 
+        placeholder="Write something…" 
+        style="
+          width:100%;
+          height:140px;
+          margin-top:20px;
+          padding:15px;
+          resize:none;
+          border-radius:8px;
+          background:#1A1C1E;
+          color:white;
+          border:1px solid #2a2d30;
+          font-size:16px;
+        "
+      ></textarea>
+
+      <!-- Send Button -->
+      <button 
+        id="send-btn"
+        style="
+          width:100%;
+          margin-top:12px;
+          padding:14px;
+          border:none;
+          border-radius:8px;
+          background:#3b82f6;
+          color:white;
+          font-size:16px;
+          cursor:pointer;
+        "
+      >
+        Send Post
+      </button>
+  </div>
 </div>
+
+<script src="packages/Store/forum.js"></script>
